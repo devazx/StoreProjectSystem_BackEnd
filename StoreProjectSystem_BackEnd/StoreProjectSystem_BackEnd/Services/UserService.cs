@@ -23,7 +23,10 @@ namespace StoreProjectSystem_BackEnd.Services
         {
             User user = _mapper.Map<User>(dto);
             IdentityResult result = await _userManager.CreateAsync(user, dto.Password);
-            if (!result.Succeeded) throw new ApplicationException("Fail to Register User.");
+            if (!result.Succeeded)
+            {
+                throw new ApplicationException("Fail to Register User.");
+            }
         }
     }
 }

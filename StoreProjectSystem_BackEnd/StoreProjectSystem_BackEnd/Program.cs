@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StoreProjectSystem_BackEnd.Data;
 using StoreProjectSystem_BackEnd.Models;
+using StoreProjectSystem_BackEnd.Services;
 
 namespace StoreProjectSystem_BackEnd
 {
@@ -30,6 +31,8 @@ namespace StoreProjectSystem_BackEnd
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<UserService>();
 
             var app = builder.Build();
 
