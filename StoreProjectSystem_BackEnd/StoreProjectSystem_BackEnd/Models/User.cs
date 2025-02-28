@@ -1,6 +1,11 @@
-﻿namespace StoreProjectSystem_BackEnd.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace StoreProjectSystem_BackEnd.Models
 {
-    public class User
+    public class User : IdentityUser
     {
+        public DateTime BirthDate { get; set; }
+        public string Gener { get; set; }
+        public User() : base() { }
     }
 }

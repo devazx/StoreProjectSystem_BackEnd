@@ -1,4 +1,9 @@
 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using StoreProjectSystem_BackEnd.Data;
+using StoreProjectSystem_BackEnd.Models;
+
 namespace StoreProjectSystem_BackEnd
 {
     public class Program
@@ -7,7 +12,19 @@ namespace StoreProjectSystem_BackEnd
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            var connString = builder.Configuration.GetConnectionString("UserConnection");
+
+            builder.Services.AddDbContext<UserDbContext>(Opt =>
+            {
+                Opt.UseMySql(connString, ServerVersion.AutoDetect(connString));
+            });
+
+            builder.Services
+                .AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<UserDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
