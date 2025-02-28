@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StoreProjectSystem_BackEnd.Data.Dtos;
+using StoreProjectSystem_BackEnd.Models;
 using StoreProjectSystem_BackEnd.Services;
 
 namespace StoreProjectSystem_BackEnd.Controllers
@@ -20,6 +21,15 @@ namespace StoreProjectSystem_BackEnd.Controllers
         {
             await _userService.RegisterUser(dto);
             return Ok("registered user.");
+        }
+
+        [HttpGet("{UserName}")]
+        public async Task<ActionResult<ReadUserDto>> FindWithUser(string UserName)
+        {
+            var result = await _userService.ShowUserWithUser(UserName);
+            if (result is null) return NotFound();  
+                    
+            return Ok(result);
         }
     }
 }

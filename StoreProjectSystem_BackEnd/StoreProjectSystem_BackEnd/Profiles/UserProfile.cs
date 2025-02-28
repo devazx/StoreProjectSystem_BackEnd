@@ -9,6 +9,7 @@ namespace StoreProjectSystem_BackEnd.Profiles
         public UserProfile() 
         {
             CreateMap<CreateUserDto, User>();
+            CreateMap<User, ReadUserDto>();
         }
     }
 }
