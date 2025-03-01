@@ -31,5 +31,13 @@ namespace StoreProjectSystem_BackEnd.Controllers
                     
             return Ok(result);
         }
+        [HttpGet]
+        public async Task<ActionResult<ReadUserDto>> AllUsers()
+        {
+            var result = _userService.ShowAllUsers();
+            if (result is null) return NotFound();
+            
+            return Ok(result.Result);
+        }
     }
 }

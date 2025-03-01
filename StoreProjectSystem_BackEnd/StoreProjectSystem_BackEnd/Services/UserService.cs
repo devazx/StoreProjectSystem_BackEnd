@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using StoreProjectSystem_BackEnd.Data;
 using StoreProjectSystem_BackEnd.Data.Dtos;
 using StoreProjectSystem_BackEnd.Models;
+using System.Collections;
 using System.Numerics;
 
 namespace StoreProjectSystem_BackEnd.Services
@@ -43,5 +44,14 @@ namespace StoreProjectSystem_BackEnd.Services
             else return readUser;
  
         }
+
+        public async Task<IEnumerable> ShowAllUsers()
+        {
+            var findUsers = _mapper.Map<List<ReadUserDto>>(_userDbContext.Users.ToList());
+
+            return findUsers;
+        }
+
+
     }
 }
