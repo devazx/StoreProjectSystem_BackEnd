@@ -11,7 +11,7 @@ using StoreProjectSystem_BackEnd.Data;
 
 namespace StoreProjectSystem_BackEnd.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
+    [DbContext(typeof(Data.StorageContext))]
     [Migration("20250228133550_Create User")]
     partial class CreateUser
     {

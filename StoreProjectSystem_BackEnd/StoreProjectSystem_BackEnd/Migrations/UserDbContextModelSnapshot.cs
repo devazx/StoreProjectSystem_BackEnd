@@ -10,7 +10,7 @@ using StoreProjectSystem_BackEnd.Data;
 
 namespace StoreProjectSystem_BackEnd.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
+    [DbContext(typeof(Data.StorageContext))]
     partial class UserDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

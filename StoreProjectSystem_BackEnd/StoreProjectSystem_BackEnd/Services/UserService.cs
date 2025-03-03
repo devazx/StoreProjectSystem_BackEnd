@@ -14,11 +14,11 @@ namespace StoreProjectSystem_BackEnd.Services
         private IMapper _mapper;
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-        private UserDbContext _userDbContext;
+        private Data.StorageContext _userDbContext;
         //private TokenService _tokenService;
 
 
-        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, UserDbContext userDbContext)
+        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, Data.StorageContext userDbContext)
         {
             _mapper = mapper;
             _userManager = userManager;

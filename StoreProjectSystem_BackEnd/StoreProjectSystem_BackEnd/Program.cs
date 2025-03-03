@@ -15,14 +15,11 @@ namespace StoreProjectSystem_BackEnd
 
             var connString = builder.Configuration.GetConnectionString("UserConnection");
 
-            builder.Services.AddDbContext<UserDbContext>(Opt =>
-            {
-                Opt.UseMySql(connString, ServerVersion.AutoDetect(connString));
-            });
+            builder.Services.AddDbContext<StorageContext>(Opt => Opt.UseMySql(connString, ServerVersion.AutoDetect(connString)));
 
             builder.Services
                 .AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<UserDbContext>()
+                .AddEntityFrameworkStores<DbContext>()
                 .AddDefaultTokenProviders();
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
