@@ -11,9 +11,12 @@ namespace StoreProjectSystem_BackEnd.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<EndProduct>()
                 .HasOne(EndProd => EndProd.UserInputStore)
-                .WithMany(endProds => endProds.StoredProducts)
+                .WithMany(user => user.StoredProducts)
+                .HasForeignKey(endprod => endprod.UserInputStoreID)
                 .OnDelete(DeleteBehavior.Restrict);
         }
 

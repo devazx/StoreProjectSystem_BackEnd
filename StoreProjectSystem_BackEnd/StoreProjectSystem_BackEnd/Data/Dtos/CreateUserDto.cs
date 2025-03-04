@@ -4,6 +4,7 @@ namespace StoreProjectSystem_BackEnd.Data.Dtos
 {
     public class CreateUserDto
     {
+
         [Required]
         public string UserName { get; set; }
         [Required]

@@ -19,7 +19,7 @@ namespace StoreProjectSystem_BackEnd
 
             builder.Services
                 .AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<DbContext>()
+                .AddEntityFrameworkStores<StorageContext>()
                 .AddDefaultTokenProviders();
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -30,6 +30,7 @@ namespace StoreProjectSystem_BackEnd
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<EndProductService>();
 
             var app = builder.Build();
 
