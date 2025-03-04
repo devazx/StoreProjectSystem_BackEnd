@@ -1,4 +1,5 @@
 ﻿using StoreProjectSystem_BackEnd.Enums;
+using StoreProjectSystem_BackEnd.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace StoreProjectSystem_BackEnd.Data.Dtos
@@ -9,14 +10,16 @@ namespace StoreProjectSystem_BackEnd.Data.Dtos
         [Required]
         public int Id { get; set; }
         [Required]
-        public string ProductName { get; set; }
+        public string NameProduct { get; set; }
         [Required]
         public TypeProductEnum TypeProduct { get; set; }
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime StorageDate { get; set; } = DateTime.Now;
+        public DateTime EnterInStore { get; set; } = DateTime.Now;
         [Required]
         [DataType(DataType.Currency)]
-        public double Cost { get; set; }
+        public double CostProduct { get; set; }
+        [Required]
+        public string UserInputStoreID { get; set; }
     }
 }

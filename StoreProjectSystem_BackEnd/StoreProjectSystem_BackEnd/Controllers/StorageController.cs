@@ -8,7 +8,7 @@ using StoreProjectSystem_BackEnd.Services;
 namespace StoreProjectSystem_BackEnd.Controllers
 {
     [ApiController]
-    [Route("[Controller")]
+    [Route("[Controller]")]
     public class StorageController : ControllerBase
     {
         private StorageContext _storageContext;
@@ -26,7 +26,7 @@ namespace StoreProjectSystem_BackEnd.Controllers
         public async Task<IActionResult> CreateProduct([FromBody] CreateEndProductDto createProductDto)
         {
             await _endProductService.RegisterProduct(createProductDto);
-            return Ok(CreatedAtAction(nameof(CreateProduct), new { id = createProductDto.Id }, CreateProduct));
+            return Ok();
         }
     }
 }
