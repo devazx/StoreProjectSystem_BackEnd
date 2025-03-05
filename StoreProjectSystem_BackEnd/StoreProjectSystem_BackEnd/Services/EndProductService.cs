@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using StoreProjectSystem_BackEnd.Data;
 using StoreProjectSystem_BackEnd.Data.Dtos;
@@ -22,6 +23,13 @@ namespace StoreProjectSystem_BackEnd.Services
             EndProduct endProduct = _mapper.Map<EndProduct>(dto);
             await _storageContext.AddAsync(endProduct);
             await _storageContext.SaveChangesAsync();
+        }
+
+        public async Task<EndProduct> GetProductId(string id)
+        {
+            EndProduct endProduct = await _storageContext.endProduct.FirstOrDefaultAsync(x => x.Id == id);
+            return endProduct;
+
         }
     }
 }

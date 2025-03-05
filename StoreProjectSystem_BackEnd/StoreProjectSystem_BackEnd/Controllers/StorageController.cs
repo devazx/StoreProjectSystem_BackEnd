@@ -26,7 +26,14 @@ namespace StoreProjectSystem_BackEnd.Controllers
         public async Task<IActionResult> CreateProduct([FromBody] CreateEndProductDto createProductDto)
         {
             await _endProductService.RegisterProduct(createProductDto);
-            return Ok();
+            return CreatedAtAction(nameof(GetProductWithId), new { Id = createProductDto.Id }, createProductDto);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetProductWithId(string Id)
+        {
+            var result = await _endProductService.GetProductId(Id);
+            if (result == null) return NotFound();
+            return Ok(result);
         }
     }
 }
