@@ -12,9 +12,11 @@ namespace StoreProjectSystem_BackEnd.Services
     public class UserService
     {
         private IMapper _mapper;
+        private UserService _userService;
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
         private StorageContext _userDbContext;
+        private EndProductService _endProductService;
         //private TokenService _tokenService;
 
 
@@ -52,6 +54,18 @@ namespace StoreProjectSystem_BackEnd.Services
             return findUsers;
         }
 
+        public async Task<ReadUserDto> UpdateProductUser(string userName, string ProductId)
+        {
+            var findUser = await _userService.ShowUserWithUser(userName);
+
+            var findProduct = await _endProductService.GetProductId(ProductId);
+
+            ReadEndProductDto findProdDto = _mapper.Map<ReadEndProductDto>(findProduct);
+
+            findUser.Products.Add(findProdDto);
+
+            return findUser;
+        }
 
     }
 }
