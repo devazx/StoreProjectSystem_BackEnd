@@ -14,10 +14,12 @@ namespace StoreProjectSystem_BackEnd.Data
             base.OnModelCreating(builder);
 
             builder.Entity<EndProduct>()
-                .HasOne(EndProd => EndProd.UserInputStore)
-                .WithMany(user => user.StoredProducts)
-                .HasForeignKey(endprod => endprod.UserInputStoreID)
+                .HasOne(x => x.UserInputStore)
+                .WithMany(y => y.StoredProducts)
+                .HasForeignKey(x => x.UserInputStoreID)
                 .OnDelete(DeleteBehavior.Restrict);
+                
+                
         }
 
         public DbSet<User> user { get; set; }

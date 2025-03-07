@@ -10,8 +10,8 @@ namespace StoreProjectSystem_BackEnd.Profiles
         {
             CreateMap<CreateUserDto, User>();
             CreateMap<User, ReadUserDto>()
-                .ForMember(Prod => Prod.Products,
-                opt => opt.MapFrom(prod => prod.StoredProducts));
+                .ForMember(dto => dto.Products,
+                opt => opt.MapFrom(dto => dto.StoredProductsId));
         }
     }
 }

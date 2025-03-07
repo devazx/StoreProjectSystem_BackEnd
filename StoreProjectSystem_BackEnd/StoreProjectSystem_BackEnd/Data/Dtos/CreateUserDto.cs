@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StoreProjectSystem_BackEnd.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreProjectSystem_BackEnd.Data.Dtos
 {
@@ -14,6 +15,6 @@ namespace StoreProjectSystem_BackEnd.Data.Dtos
         public string Password { get; set; }
         [Required]
         [Compare("Password")]
-        public string RePassword { get; set; }
+        public string StorageProductsId { get; set; }
     }
 }
