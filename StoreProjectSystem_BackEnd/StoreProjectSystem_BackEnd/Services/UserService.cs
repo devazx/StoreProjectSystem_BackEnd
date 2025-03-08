@@ -20,12 +20,14 @@ namespace StoreProjectSystem_BackEnd.Services
         //private TokenService _tokenService;
 
 
-        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, StorageContext userDbContext)
+        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, StorageContext userDbContext, EndProductService endProductService)
         {
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
             _userDbContext = userDbContext;
+            _endProductService = endProductService;
+
         }
         public async Task RegisterUser(CreateUserDto dto)
         {
@@ -38,7 +40,7 @@ namespace StoreProjectSystem_BackEnd.Services
         }
         public async Task<ReadUserDto> ShowUserWithUser(string userName)
         {
-            var findUser = await _userManager.FindByNameAsync(userName);
+            var findUser = await _userManager.FindByNameAsync(userName.ToUpper());
 
            ReadUserDto readUser = _mapper.Map<ReadUserDto>(findUser);
 
@@ -54,9 +56,9 @@ namespace StoreProjectSystem_BackEnd.Services
             return findUsers;
         }
 
-        public async Task<ReadUserDto> UpdateProductUser(string userName, string ProductId)
+        public async Task<ReadUserDto> UpdateProductUser(string userName, Guid ProductId)
         {
-            var findUser = await _userService.ShowUserWithUser(userName);
+            var findUser = await ShowUserWithUser(userName.ToUpper());
 
             var findProduct = await _endProductService.GetProductId(ProductId);
 

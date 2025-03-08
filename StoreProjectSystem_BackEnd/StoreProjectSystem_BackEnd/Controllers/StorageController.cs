@@ -29,7 +29,7 @@ namespace StoreProjectSystem_BackEnd.Controllers
             return CreatedAtAction(nameof(GetProductWithId), new { Id = createProductDto.Id }, createProductDto);
         }
         [HttpGet]
-        public async Task<IActionResult> GetProductWithId(string Id)
+        public async Task<IActionResult> GetProductWithId(Guid Id)
         {
             var result = await _endProductService.GetProductId(Id);
             if (result == null) return NotFound();

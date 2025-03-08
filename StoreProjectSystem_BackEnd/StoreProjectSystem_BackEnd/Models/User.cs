@@ -7,7 +7,7 @@ namespace StoreProjectSystem_BackEnd.Models
         public DateTime BirthDate { get; set; }
         public string Gener { get; set; }
         public User() : base() { }
-        public string? StoredProductsId { get; set; }
+        public string StoredProductsId { get; set; }
         public virtual ICollection<EndProduct> StoredProducts { get; set; }
     }
 }

@@ -25,10 +25,14 @@ namespace StoreProjectSystem_BackEnd.Services
             await _storageContext.SaveChangesAsync();
         }
 
-        public async Task<EndProduct> GetProductId(string id)
+        public async Task<ReadEndProductDto> GetProductId(Guid id)
         {
             EndProduct endProduct = await _storageContext.endProduct.FirstOrDefaultAsync(x => x.Id == id);
-            return endProduct;
+
+            ReadEndProductDto endProd =  _mapper.Map<ReadEndProductDto>(endProduct);
+
+            if (endProd == null) throw new ApplicationException("Product don`t exist");
+            return endProd;
 
         }
     }

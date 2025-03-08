@@ -7,8 +7,7 @@ namespace StoreProjectSystem_BackEnd.Data.Dtos
     public class CreateEndProductDto
     {
         [Key]
-        [Required]
-        public int Id { get; set; }
+        public virtual Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         public string NameProduct { get; set; }
         [Required]

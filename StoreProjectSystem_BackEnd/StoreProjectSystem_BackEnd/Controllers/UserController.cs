@@ -39,7 +39,8 @@ namespace StoreProjectSystem_BackEnd.Controllers
             
             return Ok(result.Result);
         }
-        public async Task<ActionResult<UpdateUserDto>> UpdateUser(string NameUser, string ProductId)
+        [HttpPatch("{NameUser}/{ProductId}")]
+        public async Task<ActionResult<UpdateUserDto>> UpdateUser(string NameUser, Guid ProductId)
         {
             var result = _userService.UpdateProductUser(NameUser, ProductId);
             if(!result.IsCompletedSuccessfully) return NotFound();
