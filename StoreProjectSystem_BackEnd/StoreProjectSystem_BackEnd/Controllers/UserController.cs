@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using StoreProjectSystem_BackEnd.Data;
 using StoreProjectSystem_BackEnd.Data.Dtos;
 using StoreProjectSystem_BackEnd.Models;
 using StoreProjectSystem_BackEnd.Services;
@@ -10,10 +15,14 @@ namespace StoreProjectSystem_BackEnd.Controllers
     public class UserController : ControllerBase
     {
         public UserService _userService;
+        public IMapper _mapper;
+        public StorageContext _storageContext;
 
-        public UserController(UserService registerService)
+        public UserController(UserService registerService, IMapper mapper, StorageContext storageContext)
         {
             _userService = registerService;
+            _mapper = mapper;
+            _storageContext = storageContext;
         }
 
         [HttpPost("Register")]
@@ -39,12 +48,20 @@ namespace StoreProjectSystem_BackEnd.Controllers
             
             return Ok(result.Result);
         }
-        [HttpPatch("{NameUser}/{ProductId}")]
-        public async Task<ActionResult<UpdateUserDto>> UpdateUser(string NameUser, Guid ProductId)
+        [HttpPatch("{NameUser}")]
+        public async Task<IActionResult> UpdateUser(string NameUser, JsonPatchDocument<UpdateUserDto> path)
         {
-            var result = _userService.UpdateProductUser(NameUser, ProductId);
-            if(!result.IsCompletedSuccessfully) return NotFound();
-            return Ok(result);
+            var userFind = await _storageContext.user.FirstOrDefaultAsync(x => x.UserName == NameUser);
+
+            var updateUser = _mapper.Map<UpdateUserDto>(userFind);
+
+            path.ApplyTo(updateUser);
+
+            if (!TryValidateModel(updateUser)) return ValidationProblem(ModelState);
+
+            _mapper.Map(updateUser, userFind);
+            _storageContext.SaveChanges();
+            return NoContent();
         }
     }
 }

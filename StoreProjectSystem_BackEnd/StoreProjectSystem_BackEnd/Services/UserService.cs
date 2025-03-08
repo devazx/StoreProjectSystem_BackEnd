@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoreProjectSystem_BackEnd.Data;
 using StoreProjectSystem_BackEnd.Data.Dtos;
@@ -17,17 +19,18 @@ namespace StoreProjectSystem_BackEnd.Services
         private SignInManager<User> _signInManager;
         private StorageContext _userDbContext;
         private EndProductService _endProductService;
+        private StorageContext _storageContext;
         //private TokenService _tokenService;
 
 
-        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, StorageContext userDbContext, EndProductService endProductService)
+        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, StorageContext userDbContext, EndProductService endProductService, StorageContext storageContext)
         {
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
             _userDbContext = userDbContext;
             _endProductService = endProductService;
-
+            _storageContext = storageContext;
         }
         public async Task RegisterUser(CreateUserDto dto)
         {
@@ -54,19 +57,6 @@ namespace StoreProjectSystem_BackEnd.Services
             var findUsers = _mapper.Map<List<ReadUserDto>>(_userDbContext.Users.ToList());
 
             return findUsers;
-        }
-
-        public async Task<ReadUserDto> UpdateProductUser(string userName, Guid ProductId)
-        {
-            var findUser = await ShowUserWithUser(userName.ToUpper());
-
-            var findProduct = await _endProductService.GetProductId(ProductId);
-
-            ReadEndProductDto findProdDto = _mapper.Map<ReadEndProductDto>(findProduct);
-
-            findUser.Products.Add(findProdDto);
-
-            return findUser;
         }
 
     }

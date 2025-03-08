@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using StoreProjectSystem_BackEnd.Data.Dtos;
 using StoreProjectSystem_BackEnd.Models;
 
@@ -12,6 +13,7 @@ namespace StoreProjectSystem_BackEnd.Profiles
             CreateMap<User, ReadUserDto>()
                 .ForMember(dto => dto.Products,
                 opt => opt.MapFrom(dto => dto.StoredProductsId));
+            CreateMap<User, UpdateUserDto>();
         }
     }
 }
