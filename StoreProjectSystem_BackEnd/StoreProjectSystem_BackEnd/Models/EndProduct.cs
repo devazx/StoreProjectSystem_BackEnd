@@ -9,7 +9,7 @@ namespace StoreProjectSystem_BackEnd.Models
         public TypeProductEnum TypeProduct { get; set; }
         public double CostProduct { get; set; }
         public DateTime EnterInStore { get; set; } = DateTime.Now;
-        public string UserInputStoreID { get; set; }
+        public string? UserInputStoreID { get; set; }
         public virtual User UserInputStore { get; set; }
         
     }

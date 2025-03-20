@@ -9,6 +9,5 @@ namespace StoreProjectSystem_BackEnd.Data.Dtos
         public string TypeProduct { get; set; }
         public DateTime EnterInStore { get; set; }
         public double CostProduct { get; set; }
-        public string UserInputStoreID { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoreProjectSystem_BackEnd.Data;
@@ -59,5 +60,20 @@ namespace StoreProjectSystem_BackEnd.Services
             return findUsers;
         }
 
+        public async Task<bool> UpdateDbUser(UpdateUserDto updateUser, User userFind)
+        {
+            try
+            {
+                _mapper.Map(updateUser, userFind);
+                _userDbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return false;
+            }
+
+        }
     }
 }

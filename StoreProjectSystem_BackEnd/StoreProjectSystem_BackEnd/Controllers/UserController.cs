@@ -26,7 +26,7 @@ namespace StoreProjectSystem_BackEnd.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> RegisterUser(CreateUserDto dto)
+        public async Task<IActionResult> RegisterUser([FromBody]CreateUserDto dto)
         {
             await _userService.RegisterUser(dto);
             return Ok("registered user.");
@@ -36,8 +36,8 @@ namespace StoreProjectSystem_BackEnd.Controllers
         public async Task<ActionResult<ReadUserDto>> FindWithUser(string UserName)
         {
             var result = await _userService.ShowUserWithUser(UserName);
-            if (result is null) return NotFound();  
-                    
+            if (result is null) return NotFound();
+
             return Ok(result);
         }
         [HttpGet]
@@ -49,18 +49,18 @@ namespace StoreProjectSystem_BackEnd.Controllers
             return Ok(result.Result);
         }
         [HttpPatch("{NameUser}")]
-        public async Task<IActionResult> UpdateUser(string NameUser, JsonPatchDocument<UpdateUserDto> path)
+        public async Task<IActionResult> UpdateUser(string NameUser, JsonPatchDocument<UpdateUserDto> patch)
         {
-            var userFind = await _storageContext.user.FirstOrDefaultAsync(x => x.UserName == NameUser);
+            var userFind = _storageContext.user.FirstOrDefault(x => x.UserName == NameUser);
 
             var updateUser = _mapper.Map<UpdateUserDto>(userFind);
 
-            path.ApplyTo(updateUser);
+            patch.ApplyTo(updateUser, ModelState);
 
             if (!TryValidateModel(updateUser)) return ValidationProblem(ModelState);
 
-            _mapper.Map(updateUser, userFind);
-            _storageContext.SaveChanges();
+            var result = _userService.UpdateDbUser(updateUser, userFind);
+            if (result.Equals(false)) return NoContent(); 
             return NoContent();
         }
     }
