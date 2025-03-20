@@ -49,13 +49,14 @@ namespace StoreProjectSystem_BackEnd.Services
            ReadUserDto readUser = _mapper.Map<ReadUserDto>(findUser);
 
             if (readUser == null) throw new ApplicationException("User not exist.");
-            else return readUser;
+            
+            return readUser;
  
         }
 
         public async Task<IEnumerable> ShowAllUsers()
         {
-            var findUsers = _mapper.Map<List<ReadUserDto>>(_userDbContext.Users.ToList());
+            var findUsers = _mapper.Map<List<ReadUserDto>>(_userDbContext.user.ToList());
 
             return findUsers;
         }
