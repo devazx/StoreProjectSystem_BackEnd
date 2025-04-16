@@ -22,7 +22,7 @@ namespace StoreProjectSystem_BackEnd.Migrations
                     TypeProduct = table.Column<int>(type: "int", nullable: false),
                     CostProduct = table.Column<double>(type: "double", nullable: false),
                     EnterInStore = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserInputStoreID = table.Column<string>(type: "varchar(255)", nullable: false)
+                    UserInputStoreID = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>

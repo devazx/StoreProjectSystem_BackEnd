@@ -15,6 +15,7 @@ namespace StoreProjectSystem_BackEnd.Data.Dtos
         public string Password { get; set; }
         [Required]
         [Compare("Password")]
+        public string Repassword { get; set; }
         public string StorageProductsId { get; set; }
     }
 }
