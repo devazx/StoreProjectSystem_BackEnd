@@ -21,14 +21,25 @@ namespace StoreProjectSystem_BackEnd.Controllers
             _storageContext = storageContext;
             _endProductService = endProductService;
         }
-
+        /// <summary>
+        /// Create a Product connect with a User
+        /// </summary>
+        /// <param name="createProductDto">Json with information about product</param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateProduct([FromBody] CreateEndProductDto createProductDto)
         {
             await _endProductService.RegisterProduct(createProductDto);
             return CreatedAtAction(nameof(GetProductWithId), new { Id = createProductDto.Id }, createProductDto);
         }
+        /// <summary>
+        /// Return a product with ID parameters
+        /// </summary>
+        /// <param name="Id">ID is created automatic with GUID</param>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProductWithId(Guid Id)
         {
             var result = await _endProductService.GetProductId(Id);
