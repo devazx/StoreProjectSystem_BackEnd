@@ -4,9 +4,9 @@
 
 ## Structure MVC with AutoMapper
   Project<br>
-    ⨽ Controllers  (Controllers with a Functions at Services) /**<br>
+    ⨽ Controllers  (Controllers with a Functions at Services) <br>
     ⨽ Data<br>
-       ⨽Dtos ( Mask profiles for connection Models with only info required and yours functions)<br>
+    .   ⨽Dtos ( Mask profiles for connection Models with only info required and yours functions)<br>
     ⨽ Enums (Makes it easier a maintenance and addition a new classification products)<br>
     ⨽ Migrations<br>
     ⨽ Models ( Models required at system ) <br>
