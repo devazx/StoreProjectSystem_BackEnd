@@ -25,14 +25,26 @@ namespace StoreProjectSystem_BackEnd.Controllers
             _storageContext = storageContext;
         }
 
+        /// <summary>
+        /// Create a new User in database
+        /// </summary>
+        /// <param name="dto"> json necessary for create a User</param>
+        /// <returns>IActionResult</returns>
         [HttpPost("Register")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> RegisterUser([FromBody]CreateUserDto dto)
         {
             await _userService.RegisterUser(dto);
-            return Ok("registered user.");
+            return CreatedAtAction(nameof(FindWithUser), 
+                new { username = dto.UserName}, dto);
         }
-
+        /// <summary>
+        /// Service for Find User
+        /// </summary>
+        /// <param name="UserName"> User Name is necessary for find in database</param>
+        /// <returns>IActionResult</returns>
         [HttpGet("{UserName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ReadUserDto>> FindWithUser(string UserName)
         {
             var result = await _userService.ShowUserWithUser(UserName);
@@ -40,7 +52,12 @@ namespace StoreProjectSystem_BackEnd.Controllers
 
             return Ok(result);
         }
+        /// <summary>
+        /// Service for return all users in database
+        /// </summary>
+        /// <returns>IActionResult</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ReadUserDto>> AllUsers()
         {
             var result = _userService.ShowAllUsers();
@@ -48,6 +65,12 @@ namespace StoreProjectSystem_BackEnd.Controllers
             
             return Ok(result.Result);
         }
+        /// <summary>
+        /// Patch for edit a information at User, but utilized a param at json
+        /// </summary>
+        /// <param name="NameUser"></param>
+        /// <param name="patch"></param>
+        /// <returns></returns>
         [HttpPatch("{NameUser}")]
         public async Task<IActionResult> UpdateUser(string NameUser, JsonPatchDocument<UpdateUserDto> patch)
         {
@@ -59,7 +82,7 @@ namespace StoreProjectSystem_BackEnd.Controllers
 
             if (!TryValidateModel(updateUser)) return ValidationProblem(ModelState);
 
-            var result = _userService.UpdateDbUser(updateUser, userFind);
+            var result = _userService.UpdateDbUser(updateUser,userFind);
             if (result.Equals(false)) return NoContent(); 
             return NoContent();
         }

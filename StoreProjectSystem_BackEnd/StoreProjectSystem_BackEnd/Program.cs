@@ -1,9 +1,11 @@
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using StoreProjectSystem_BackEnd.Data;
 using StoreProjectSystem_BackEnd.Models;
 using StoreProjectSystem_BackEnd.Services;
+using System.Reflection;
 
 namespace StoreProjectSystem_BackEnd
 {
@@ -29,7 +31,13 @@ namespace StoreProjectSystem_BackEnd
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "StoreProjectSystem API", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<EndProductService>();
