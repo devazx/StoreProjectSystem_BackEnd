@@ -1,9 +1,9 @@
-# Store-Project-System-Back-End
+## Store-Project-System-Back-End : 
 
-Project with focus in .NET / ASP.NET / MySQL / Entity / Identity / Token / JWT
+  "Project with focus in .NET / ASP.NET / MySQL / Entity / Identity / Token / JWT"
 
-structure MVC with AutoMapper
-  Project
+## structure MVC with AutoMapper
+  "Project
     ⨽ Controllers  (Controllers with a Functions at Services)
        ⨽ Data
           ⨽Dtos ( Mask profiles for connection Models with only info required and yours functions)
@@ -11,7 +11,7 @@ structure MVC with AutoMapper
     ⨽ Migrations
     ⨽ Models ( Models required at system ) 
     ⨽ Profiles (configure profiles in AutoMapper between Models with Dtos)
-    ⨽ Services (Create a second layer at security connection DB)
+    ⨽ Services (Create a second layer at security connection DB)"
 
 it`s a informative package with a frameworks in a project:
 
