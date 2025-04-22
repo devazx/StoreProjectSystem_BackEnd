@@ -32,11 +32,11 @@ namespace StoreProjectSystem_BackEnd.Controllers
         /// <returns>IActionResult</returns>
         [HttpPost("Register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> RegisterUser([FromBody]CreateUserDto dto)
+        public async Task<IActionResult> RegisterUser([FromBody] CreateUserDto dto)
         {
             await _userService.RegisterUser(dto);
-            return CreatedAtAction(nameof(FindWithUser), 
-                new { username = dto.UserName}, dto);
+            return CreatedAtAction(nameof(FindWithUser),
+                new { username = dto.UserName }, dto);
         }
         /// <summary>
         /// Service for Find User
@@ -62,11 +62,11 @@ namespace StoreProjectSystem_BackEnd.Controllers
         {
             var result = _userService.ShowAllUsers();
             if (result is null) return NotFound();
-            
+
             return Ok(result.Result);
         }
         /// <summary>
-        /// Patch for edit a information at User, but utilized a param at json
+        /// Patch for edit a information at User, but utilized a param in JsonPatch
         /// </summary>
         /// <param name="NameUser"></param>
         /// <param name="patch"></param>
@@ -82,9 +82,23 @@ namespace StoreProjectSystem_BackEnd.Controllers
 
             if (!TryValidateModel(updateUser)) return ValidationProblem(ModelState);
 
-            var result = _userService.UpdateDbUser(updateUser,userFind);
-            if (result.Equals(false)) return NoContent(); 
+            var result = _userService.UpdateDbUser(updateUser, userFind);
+            if (result.Equals(false)) return NoContent();
             return NoContent();
+        }
+        /// <summary>
+        /// Find User with User for Delete in database
+        /// </summary>
+        /// <param name="UserName">String for location name in db</param>
+        /// <returns></returns>
+        [HttpDelete("{NameUser}")]
+        public async Task<IActionResult> DeleteUser(string UserName)
+        {
+
+            var result = _userService.DeleteUserService(UserName);
+
+            if(result is null) return NoContent();
+            return Ok();
         }
     }
 }

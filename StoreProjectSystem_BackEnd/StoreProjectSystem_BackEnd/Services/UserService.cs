@@ -76,5 +76,22 @@ namespace StoreProjectSystem_BackEnd.Services
             }
 
         }
+
+        public async Task<bool> DeleteUserService(string userFind)
+        {
+            try
+            {
+                var result = _userDbContext.Users.FirstOrDefault(x => x.UserName == userFind);
+                _userDbContext.Users.Remove(result);
+                _userDbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: { ex.Message}");
+                return false;
+            }
+
+        }
     }
 }
