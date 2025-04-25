@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StoreProjectSystem_BackEnd.Data;
 using StoreProjectSystem_BackEnd.Data.Dtos;
@@ -43,6 +44,18 @@ namespace StoreProjectSystem_BackEnd.Controllers
         public async Task<IActionResult> GetProductWithId(Guid Id)
         {
             var result = await _endProductService.GetProductId(Id);
+            if (result == null) return NotFound();
+            return Ok(result);
+        }
+        /// <summary>
+        /// Remove Product with Id (Guid)
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpDelete("{ProductId}")]
+        public async Task<IActionResult> DeleteProductWithId(Guid Id)
+        {
+            var result = await _endProductService.DeleteProductId(Id);
             if (result == null) return NotFound();
             return Ok(result);
         }

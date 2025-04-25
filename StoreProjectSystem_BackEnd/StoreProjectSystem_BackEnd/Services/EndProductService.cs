@@ -35,5 +35,20 @@ namespace StoreProjectSystem_BackEnd.Services
             return endProd;
 
         }
+
+        public async Task<bool> DeleteProductId(Guid id)
+        {
+            try
+            {
+                var result = _storageContext.endProduct.FirstOrDefaultAsync(x => x.Id == id);
+                _storageContext.Remove(result);
+                _storageContext.SaveChangesAsync();
+                return true;
+            }catch (Exception ex) 
+            {
+                Console.WriteLine($"Error: {ex}");
+                return false; 
+            }
+        }
     }
 }

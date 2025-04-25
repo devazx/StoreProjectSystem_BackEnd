@@ -91,7 +91,7 @@ namespace StoreProjectSystem_BackEnd.Controllers
         /// </summary>
         /// <param name="UserName">String for location name in db</param>
         /// <returns></returns>
-        [HttpDelete("{NameUser}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteUser(string UserName)
         {
 
