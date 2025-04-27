@@ -11,6 +11,8 @@ namespace StoreProjectSystem_BackEnd.Data.Dtos
         [Required]
         public DateTime BirthDate { get; set; }
         [Required]
+        public bool Hired { get; set; }
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required]

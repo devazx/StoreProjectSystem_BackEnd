@@ -1,7 +1,9 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using StoreProjectSystem_BackEnd.Authorization;
 using StoreProjectSystem_BackEnd.Data;
 using StoreProjectSystem_BackEnd.Models;
 using StoreProjectSystem_BackEnd.Services;
@@ -25,6 +27,8 @@ namespace StoreProjectSystem_BackEnd
                 .AddDefaultTokenProviders();
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            builder.Services.AddSingleton<IAuthorizationHandler, HiredAuthorization>();
 
             builder.Services.AddControllers().AddNewtonsoftJson();
 
