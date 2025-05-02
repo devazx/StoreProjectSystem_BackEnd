@@ -18,7 +18,6 @@ namespace StoreProjectSystem_BackEnd.Authorization
                     context.Succeed(requirement);
                 }
             }
-
             return Task.CompletedTask;
         }
     }
